@@ -1,0 +1,17 @@
+#!/bin/bash
+
+file='admincomp.zip'
+
+while true;
+do
+	content=$(zipinfo -1 $file)
+	pass=$(echo $content | cut -d "." -f1)
+	res=$(unzip -P $pass -o $file 2>&1| grep -ic "incorrect")
+	if [ $res -ge 1 ]
+	then
+		break
+	fi
+	echo $content
+
+	file=$content
+done
